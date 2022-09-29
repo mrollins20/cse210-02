@@ -1,17 +1,20 @@
-from game.card import Card
+from cards import Cards
 
 
 class Director:
     """A person who directs the game.
 
-    The responsibility of a Director is to control the sequence of play.
+    The responsibility of the Director is to control the sequence of play.
 
     Attributes:
         cards (List[Card]): A list of Card instances.
         is_playing (boolean): Whether or not the game is being played.
         score (int): The score for one round of play.
-        next_card (int): The value of a given card.
+        current_card_value (int): The value of the current card.
+        next_card_value (int): The value of the next card.
+        hilo_value (string): The given value of a player-given input.
     """
+
     def __init__(self):
         """Constructs a new Director.
 
@@ -21,15 +24,13 @@ class Director:
         self.cards = []
         self.is_playing = True
         self.score = 300
-        self.previous_value = 0
-        self.next_card = 0
+        self.current_card_value = 0
+        self.next_card_value = 0
+        self.hilo_value = ""
+
         for i in range(13):
-            card = Card()
-            if self.cards[i] != self.next_card[i]:
-                self.cards.append(card)
-                self.previous_value.append(card)
-            else:
-                pass
+            deck = Cards()
+            self.cards.append(deck)
     
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -43,45 +44,33 @@ class Director:
             self.do_outputs()
     
     def get_inputs(self):
-        """Ask the user if they want to roll.
+        """Prompt the user for a response to Higher or lower and ask the user if they want to draw another card.
 
         Args:
             self (Director): An instance of Director.
         """
-        hilo = input("Higher or lower? [h/l] ")
-        draw_cards = input("Draw again? [y/n] ")
-        self.is_playing = (draw_cards == "y")
+        hi_lo = input("Higher or lower? [h/l] ")
+        confirm_guess(deck, hi_lo)
+        draw_card = input("Play again? [y/n] ")
+        self.is_playing = (draw_card == "y")
 
     def do_updates(self):
-        """Updates the player's score.
+        """Updates the player's score and current_card_value.
 
         Args:
             self (Director): An instance of Director.
         """
         if not self.is_playing:
             return
-
-        card = self.cards[i]
-        card.draw_card()
         
-        if card.value >= self.previous_value:
-            self.score += card.points
-        self.total_score += self.score
-    
+        for i in range(len(self.cards)):
+            card = self.cards[i]
+            
+        
+
     def do_outputs(self):
         """Displays the cards and the score. Also asks the player if they want to draw again.
 
         Args:
             self (Director): An instance of Director.
         """
-        if not self.is_playing:
-            return
-        
-        values = ""
-        for i in range(len(self.cards)):
-            card = self.cards[i]
-            values += f"{card.value} "
-        
-        print(f"You drew: {values}")
-        print(f"Your score is: {self.self_score}\n")
-        self.is_playing == (self.score > 0)
