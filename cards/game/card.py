@@ -1,10 +1,6 @@
 import random
-import turtle
-from director import Director
-def main():
-    _t = turtle.Turtle()
 
-class Cards:
+class Card:
     """A deck of 13 cards numbered 1-13.
 
     The responsibility of Cards is to keep track of the values of cards and points for it.
@@ -20,9 +16,12 @@ class Cards:
         Args:
             self (Cards): An instance of Cards.
         """
-        self.value = 0
+        self.current_card_value = 0
+        self.next_card_value = random.randint(1, 13)
         self.points = 0
         self.hilo = ""
+        self.player_guess = ""
+        self.confirm_points = True
 
     def draw_card(self):
         """Draws a random card to display.
@@ -30,18 +29,21 @@ class Cards:
         Args:
             self (Card): An instance of Card.
         """
-        self.value = random.randint(1, 6)
-        
-    def confirm_guess(self, guess):
+        self.current_card_value = self.next_card_value
+        self.next_card_value = random.randint(1, 13)
+    
+    def confirm_guess(self):
         """Uses the player's response to generate a boolean for point calculation.
 
         Args:
             self (Cards): An instance of Cards.
         """
+        
+        if self.next_card_value <= self.current_card_value:
+            self.hilo = "l"
+        elif self.next_card_value >= self.current_card_value:
+            self.hilo = "h"
 
-        if self.hilo == guess:
-            self.points += 100
-        elif self.hilo != guess:
-            self.points -= 75
-        else:
-            self.points += 0
+        self.confirm_points = (self.hilo == self.player_guess)
+
+        self.points = 100 if self.confirm_points == True else (-75) if self.confirm_points == False else 0
