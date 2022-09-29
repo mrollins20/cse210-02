@@ -14,7 +14,7 @@
 --- Create a method to subtract 75 points from the player if the guess is wrong
 --- Create a method to check if both players have 0 points
 --- Create a method for game over when one of the players looses(could have a general score and after the matches add 1 point per win)
---- Create a method to reset the attributes to restart the game(and call the startgame methord)
+--- Create a method to reset the attributes to restart the game(and call the startgame method)
 --- Create a method do start the game
 
 ### Backlog:
