@@ -1,6 +1,7 @@
+from game.graphics import turtle, draw_diamond, draw_heart, draw_red_star, draw_spade, draw_clubs
 from game.card import Card
 import random
-
+import turtle
 
 class Director:
     """A person who directs the game.
@@ -45,10 +46,7 @@ class Director:
             self.get_inputs()
             self.do_updates()
             self.do_outputs()
-            self.continue_game()
-        
-        print(f"Final score was {self.score}!\n")
-        
+            self.continue_game()    
     
     def get_inputs(self):
         """Prompt the user for a response to Higher or lower and ask the user if they want to draw another card.
@@ -59,7 +57,7 @@ class Director:
         if not self.is_playing:
             return
 
-        print(f"The card is: {self.current_card_value}")
+        print(f"The card is: {self.next_card_value}")
         self.hilo_value = input("Higher or lower? [h/l] ")
 
     def do_updates(self):
@@ -70,6 +68,7 @@ class Director:
         """
         if not self.is_playing:
             return
+
         
         card = self.cards
         card.draw_card()
@@ -87,19 +86,52 @@ class Director:
         """
         if not self.is_playing:
             return
-        
-        print(f"Next card was: {self.next_card_value}")
-        print(f"Your score is: {self.score}")
-        self.is_playing == (self.score > 0)
-        
+        _t = turtle.Turtle()
+        card_suit = random.randint(0, 5)
+        if card_suit == 0:
+            draw_clubs(_t)
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+        elif card_suit == 1:
+            draw_heart(_t)
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+        elif card_suit == 2:
+            draw_diamond(_t)
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+        elif card_suit == 3:
+            draw_spade(_t)
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+        elif card_suit == 4:
+            draw_red_star(_t)
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+        else:
+            print(f"Next card was: {self.next_card_value}")
+            print(f"Your score is: {self.score}")
+            self.is_playing == (self.score > 0)
+            
     def continue_game(self):
         """Ask the user if they would like to continue playing.
 
         Args:
             self (Director): An instance of Director.
         """
-        if not self.is_playing:
+        if self.score > 0:
             return
-
-        draw_card = input("Play again? [y/n] ")
-        self.is_playing = (draw_card == "y")
+        elif self.score <= 0:
+            self.is_playing = 0
+            final_score = self.score
+            self.score = 300
+            draw_card = input("Play again? [y/n] ")
+            self.is_playing = (draw_card == "y")
+            if not self.is_playing:
+                print(f"Final score was {final_score}!\n")
+            
