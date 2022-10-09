@@ -35,6 +35,21 @@ class Director:
         self.next_card_value = card.next_card_value
     
     def start_game(self):
+        """Works as a lobby to start and exit the game"""
+        
+        print("Welcome to Hilo Game")
+        option = input("Press Enter to Start the Game or 'E' to exit\n")
+        option = option.capitalize()
+        if(option==''):
+            self.game_play()
+            
+        elif(option=='E'):
+            return
+        else:
+            print("Invalid Option. Try again")
+            return self.start_game()
+    
+    def game_play(self):
         """Starts the game by running the main game loop.
         
         Args:
